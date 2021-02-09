@@ -20,7 +20,7 @@ after-success:
   - docker build -t burakunuvar/nginx ./nginx
   - docker build -t burakunuvar/express-worker ./react-frontend
   # LOGIN and then PUSH TO DOCKER HUB
-  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --pasword-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
   - docker push burakunuvar/react-frontend
   - docker push burakunuvar/express-server
   - docker push burakunuvar/nginx
