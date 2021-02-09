@@ -65,4 +65,6 @@ COPY --from=builder /app/build /usr/share/nginx/html
   Clean up tests ( as there'll be no connection to backend yet)
   FIB component is going to try to make a request to our back and express server. That is not quite running at this point in time.
 
-Github and Travis CI Setup
+## Github and Travis CI Setup
+
+## Pushing Images to Docker Hub

@@ -1,0 +1,27 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  # change directory for dockerfile.dev of react app
+  # add directory at the end for build context
+  - docker build -t burakunuvar/test-frontend -f ./react-frontend/Dockerfile.dev ./react-frontend
+
+script:
+  #   - docker run buraku/sample-app npm run test -- --coverage
+  #   use -- --coverage to quit tests in the end
+  - docker run -e CI=true burakunuvar/test-frontend npm run test -- --coverage
+
+after-success:
+  # this time we'll use main dockerfile so no need to specify directory
+  - docker build -t burakunuvar/react-frontend ./react-frontend
+  - docker build -t burakunuvar/express-server ./express-server
+  - docker build -t burakunuvar/nginx ./nginx
+  - docker build -t burakunuvar/express-worker ./react-frontend
+  # LOGIN and then PUSH TO DOCKER HUB
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --pasword-stdin
+  - docker push burakunuvar/react-frontend
+  - docker push burakunuvar/express-server
+  - docker push burakunuvar/nginx
+  - docker push burakunuvar/express-worker
