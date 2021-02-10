@@ -68,3 +68,4 @@ COPY --from=builder /app/build /usr/share/nginx/html
 ## Github and Travis CI Setup
 
 ## Pushing Images to Docker Hub
+#### end of file
