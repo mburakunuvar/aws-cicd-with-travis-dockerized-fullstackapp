@@ -25,3 +25,15 @@ after-success:
   - docker push burakunuvar/express-server
   - docker push burakunuvar/nginx
   - docker push burakunuvar/express-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-1"
+  app: "dockerized-fullstackapp"
+  env: "Dockerizedfullstackapp-env"
+  bucket_name: "elasticbeanstalk-eu-west-1-388521517294"
+  bucket_path: "dockerized-fullstackapp"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
