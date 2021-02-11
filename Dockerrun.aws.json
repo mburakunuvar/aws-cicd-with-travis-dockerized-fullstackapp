@@ -25,10 +25,11 @@
     {
       "name": "nginx",
       "image": "burakunuvar/nginx",
+      "hostname": "nginx",
       "essential": true,
       "portMappings": [
         {
-          "hostPort": 3000,
+          "hostPort": 80,
           "containerPort": 80
         }
       ],
