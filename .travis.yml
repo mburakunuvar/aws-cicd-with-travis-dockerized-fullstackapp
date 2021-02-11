@@ -29,8 +29,8 @@ after-success:
 deploy:
   provider: elasticbeanstalk
   region: "eu-west-1"
-  app: "dockerized-fullstackapp"
-  env: "Dockerizedfullstackapp-env"
+  app: "multi-docker"
+  env: "Multidocker-env"
   bucket_name: "elasticbeanstalk-eu-west-1-388521517294"
   bucket_path: "dockerized-fullstackapp"
   on:
