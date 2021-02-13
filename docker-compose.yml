@@ -16,6 +16,7 @@ services:
       context: ./nginx
     ports:
       - "3050:80"
+  #api
   express-server:
     build:
       dockerfile: Dockerfile.dev
@@ -31,6 +32,7 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
       - PGPORT=5432
+  #react
   react-frontend:
     stdin_open: true
     build:

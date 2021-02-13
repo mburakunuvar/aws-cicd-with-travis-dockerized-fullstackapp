@@ -4,14 +4,14 @@
     {
       "name": "react-frontend",
       "image": "burakunuvar/react-frontend",
-      "hostname": "react-frontend",
+      "hostname": "react",
       "essential": false,
       "memory": 128
     },
     {
       "name": "express-server",
       "image": "burakunuvar/express-server",
-      "hostname": "express-server",
+      "hostname": "api",
       "essential": false,
       "memory": 128
     },
