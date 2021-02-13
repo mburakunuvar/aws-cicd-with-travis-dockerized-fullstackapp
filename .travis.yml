@@ -28,10 +28,10 @@ after-success:
 
 deploy:
   provider: elasticbeanstalk
-  region: "eu-west-1"
+  region: "eu-central-1"
   app: "multi-docker"
   env: "Multidocker-env"
-  bucket_name: "elasticbeanstalk-eu-west-1-388521517294"
+  bucket_name: "elasticbeanstalk-eu-central-1-388521517294"
   bucket_path: "dockerized-fullstackapp"
   on:
     branch: main
