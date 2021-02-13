@@ -1,38 +1,35 @@
-language: generic
 sudo: required
+language: generic
+
 services:
   - docker
 
 before_install:
-  # change directory for dockerfile.dev of react app
-  # add directory at the end for build context
-  - docker build -t burakunuvar/test-frontend -f ./react-frontend/Dockerfile.dev ./react-frontend
+  - docker build -t burakunuvar/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  #   - docker run buraku/sample-app npm run test -- --coverage
-  #   use -- --coverage to quit tests in the end
-  - docker run -e CI=true burakunuvar/test-frontend npm run test -- --coverage
+  - docker run -e CI=true burakunuvar/react-test npm test
 
-after-success:
-  # this time we'll use main dockerfile so no need to specify directory
-  - docker build -t burakunuvar/react-frontend ./react-frontend
-  - docker build -t burakunuvar/express-server ./express-server
-  - docker build -t burakunuvar/nginx ./nginx
-  - docker build -t burakunuvar/express-worker ./react-frontend
-  # LOGIN and then PUSH TO DOCKER HUB
+after_success:
+  - docker build -t burakunuvar/multi-client-02-11 ./client
+  - docker build -t burakunuvar/multi-nginx-02-11 ./nginx
+  - docker build -t burakunuvar/multi-server-02-11 ./server
+  - docker build -t burakunuvar/multi-worker-02-11 ./worker
+  # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push burakunuvar/react-frontend
-  - docker push burakunuvar/express-server
-  - docker push burakunuvar/nginx
-  - docker push burakunuvar/express-worker
+  # Take those images and push them to docker hub
+  - docker push burakunuvar/multi-client-02-11
+  - docker push burakunuvar/multi-nginx-02-11
+  - docker push burakunuvar/multi-server-02-11
+  - docker push burakunuvar/multi-worker-02-11
 
 deploy:
   provider: elasticbeanstalk
-  region: "eu-central-1"
+  region: "eu-west-1"
   app: "multi-docker"
-  env: "Multidocker-env"
-  bucket_name: "elasticbeanstalk-eu-central-1-388521517294"
-  bucket_path: "dockerized-fullstackapp"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-eu-west-1-388521517294"
+  bucket_path: "docker-multi"
   on:
     branch: main
   access_key_id: $AWS_ACCESS_KEY
